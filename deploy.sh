@@ -21,12 +21,7 @@ apt-get upgrade
 # Install nginx-extras, which includes nginx-rtmp-module
 apt-get install -y nginx-extras pkg-config build-essential yasm libmp3lame-dev libogg-dev libvorbis-dev libtheora-dev libaacs-dev libvpx-dev libx264-dev libxvidcore-dev libssl-dev pkg-config
 
-#Based on: https://gist.github.com/fergbrain/fb50134a19405cfcc11f
-
-export TMPDIR=/tmp
-
-
-
+# Based on: https://gist.github.com/fergbrain/fb50134a19405cfcc11f
 ###########################################################
 # faac 1.28
 ###########################################################
@@ -73,3 +68,12 @@ cd ffmpeg-2.8
 
 make          # 6.25 min
 make install
+
+# Setup directories we need for HLS
+mkdir /tmp/HLS
+mkdir /tmp/HLS/live
+mkdir /tmp/HLS/mobile
+# Setup direcory for hosted video
+mkdir /var/www/video_recordings
+# Setup direrectory for stat.xsl
+mkdir /usr/local/src/nginx-rtmp-module
