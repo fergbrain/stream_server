@@ -1,2 +1,2 @@
 * text=auto
-*.rules text eol=lf
+*.rules text eol=crlf
