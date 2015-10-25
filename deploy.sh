@@ -79,9 +79,9 @@ make install
 ldconfig
 
 # Setup directories we need for HLS
-mkdir /tmp/HLS
-mkdir /tmp/HLS/live
-mkdir /tmp/HLS/mobile
+mkdir /var/www/HLS
+mkdir /var/www/HLS/live
+mkdir /var/www/HLS/mobile
 
 # Setup direcory for hosted video
 mkdir /var/www/video_recordings
