@@ -94,6 +94,6 @@ mv /etc/nginx/nginx.conf /etc/nginx/nginx.conf.orig
 
 cp $HOME/stream_server/nginx.conf /etc/nginx/nginx.conf
 cp $HOME/stream_server/stat.xsl /usr/local/src/nginx-rtmp-module/stat.xsl
-cp $HOME/stream_server/index.html /usr/www/html/index.html
+cp $HOME/stream_server/index.html /var/www/html/index.html
 
 service nginx restart
