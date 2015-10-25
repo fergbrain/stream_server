@@ -2,7 +2,15 @@
 
 # Update the system
 apt-get update
-apt-get upgrade
+apt-get -y upgrade
+
+# Secure the system
+export DEBIAN_FRONTEND=noninteractive
+
+iptables-restore < $HOME/stream_server/iptables.rules
+ip6tables-restore < $HOME/stream_server/ip6tables.rules
+
+apt-get install -y iptables-persistent
 
 # Add dotdeb to the package repo for nginx
 echo "" | tee -a /etc/apt/sources.list
@@ -16,7 +24,6 @@ apt-key add /tmp/dotdeb.gpg
 
 # Update the apt with the dotdeb repo
 apt-get update
-apt-get upgrade
 
 # Install nginx-extras, which includes nginx-rtmp-module
 apt-get install -y nginx-extras pkg-config build-essential yasm libmp3lame-dev libogg-dev libvorbis-dev libtheora-dev libaacs-dev libvpx-dev libx264-dev libxvidcore-dev libssl-dev pkg-config
@@ -69,11 +76,23 @@ cd ffmpeg-2.8
 make          # 6.25 min
 make install
 
+ldconfig
+
 # Setup directories we need for HLS
 mkdir /tmp/HLS
 mkdir /tmp/HLS/live
 mkdir /tmp/HLS/mobile
+
 # Setup direcory for hosted video
 mkdir /var/www/video_recordings
-# Setup direrectory for stat.xsl
+# Setup directory for stat.xsl
 mkdir /usr/local/src/nginx-rtmp-module
+# Setup directory for nginx logs
+mkdir /usr/share/nginx/logs/
+
+mv /etc/nginx/nginx.conf /etc/nginx/nginx.conf.orig
+
+cp $HOME/stream_server/nginx.conf /etc/nginx/nginx.conf
+cp $HOME/stream_server/stat.xsl /usr/local/src/nginx-rtmp-module/stat.xsl
+
+service nginx restart
